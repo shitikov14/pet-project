@@ -3,7 +3,6 @@ export default class Carousel {
         this.slides = slides;
         this.container = null;
         this.init();
-        this.slide = this.container.querySelector('.carousel__inner');
         this.dragDrop();
     }
     get elem() {
@@ -44,40 +43,58 @@ export default class Carousel {
     }
 
     dragDrop() {
-        this.slide.ondragstart = () => false;
-        this.slide.addEventListener('pointerdown', (e) => {
-            this.slide.classList.add('slider_dragging');
-
-            let cursorStartPosition = e.clientX.toFixed();
-
-            const onMove = (event) => {
-                let clientX = event.clientX.toFixed();
-                let widthSlide = this.slide.offsetWidth;
-                let translateX = 0;
-
-                if (clientX - cursorStartPosition > 150) {
-                    translateX += widthSlide;
-                    this.slide.style.transform = `translateX(${translateX}px)`;
-                    let pointerUp = new Event("pointerup");
-                    this.slide.dispatchEvent(pointerUp);
-                    console.log(translateX);
-                }
-          
-                if (clientX - cursorStartPosition < -150) {
-                    translateX -= widthSlide;
-                    this.slide.style.transform = `translateX(${translateX}px)`;
-                    let pointerUp = new Event("pointerup");
-                    this.slide.dispatchEvent(pointerUp);
-                    console.log(translateX);
-                }
+        let innerSlider = this.container.querySelector('.carousel__inner');
+        let sliderContainer = this.container.querySelector('.wrapper');
+        let pressed = false;
+        let startX;
+        let x;
+        
+        sliderContainer.addEventListener("pointerdown", (e) => {
+            pressed = true;
+            startX = e.offsetX - innerSlider.offsetLeft;
+            sliderContainer.style.cursor = "grabbing";
+        });
+        
+        sliderContainer.addEventListener("pointerenter", () => {
+            sliderContainer.style.cursor = "grab";
+        });
+        
+        sliderContainer.addEventListener("pointerleave", () => {
+            sliderContainer.style.cursor = "default";
+        });
+        
+        sliderContainer.addEventListener("pointerup", () => {
+            sliderContainer.style.cursor = "grab";
+            pressed = false;
+        });
+        
+        window.addEventListener("pointerup", () => {
+            // pressed = false;
+        });
+        
+        sliderContainer.addEventListener("pointermove", (e) => {
+            if (!pressed) return;
+            e.preventDefault();
+        
+            x = e.offsetX;
+        
+            innerSlider.style.left = `${x - startX}px`;
+        
+            checkBoundary();
+        });
+        
+        const checkBoundary = () => {
+            let outer = sliderContainer.getBoundingClientRect();
+            let inner = innerSlider.getBoundingClientRect();
+        
+            if (parseInt(innerSlider.style.left) > 0) {
+                innerSlider.style.left = "0px";
             }
-            this.container.addEventListener('pointermove', onMove);
-
-
-            this.slide.addEventListener('pointerup', () => {
-                this.container.removeEventListener('pointermove', onMove);
-            });
-        })
+        
+            if (inner.right < outer.right) {
+                innerSlider.style.left = `-${inner.width - outer.width}px`;
+            }
+        };
     }
     
 }
