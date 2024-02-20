@@ -1,3 +1,6 @@
+body {
+  margin: 0;
+}
 .gallery {
   height: 313px;
   position: relative;
@@ -161,10 +164,10 @@
     }
   }
   
-.menu ul {
+.dropdown-menu ul {
   display: none;
 }
 
-.menu.open ul{
+.dropdown-menu.open ul{
   display: block;
 }

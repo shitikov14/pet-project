@@ -1,4 +1,4 @@
-export default class Menu {
+export default class DropdownMenu {
     #title = '';
     #items = [];
     #parent = [];
@@ -9,7 +9,7 @@ export default class Menu {
     }
 
     get #container() {
-        return this.#parent.querySelector('[data-component="Menu"]')
+        return this.#parent.querySelector('[data-component="DropdownMenu"]')
     }
 
     render() {
@@ -23,7 +23,7 @@ export default class Menu {
     
     #template() {
         return `
-        <div data-component="Menu" class="menu">
+        <div data-component="DropdownMenu" class="dropdown-menu">
             <span class="title">${this.#title}</span>
             <ul>
                 ${this.#items.map(name => `<li>${name}</li>`).join('')}
@@ -33,10 +33,10 @@ export default class Menu {
     }
 }
 
-const menu = new Menu(
+const dropdownMenu = new DropdownMenu(
     'Десерты',
     ['Торт', 'Пончики'],
-    document.querySelector('#app-root')
+    document.querySelector('.container-menu')
 );
 
-menu.render();
+dropdownMenu.render();
