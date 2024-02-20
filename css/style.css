@@ -1,6 +1,7 @@
 .gallery {
   height: 313px;
   position: relative;
+  overflow: hidden;
 }
 .carousel {
     height: var(--carousel-height);
@@ -13,7 +14,7 @@
     z-index: 2;
     right: 0;
     bottom: 0;
-    height: 80px;
+    height: 70px;
     background-color: var(--color-black-dark);
     display: flex;
     flex-direction: row;
@@ -160,3 +161,10 @@
     }
   }
   
+.menu ul {
+  display: none;
+}
+
+.menu.open ul{
+  display: block;
+}

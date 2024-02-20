@@ -9,14 +9,15 @@
 </head>
 
 <body>
-  <header class="header">
-  </header>
-
+  <header class="header"></header>
+  <div id="app-root"></div>
   <div class="container" data-carousel-holder></div>
 
   <script type="module">
+    import Menu from '../js/menu.js';
     import slides from '../js/slides.js';
     import Carousel from '../js/gallery.js';
+
 
     let containerElement = document.body.querySelector('.container');
     let carousel = new Carousel(slides);
