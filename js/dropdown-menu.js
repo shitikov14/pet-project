@@ -16,7 +16,7 @@ export default class DropdownMenu {
         this.#parent.innerHTML = this.#template();
         this.#container.addEventListener('click', this.#onMenuClick);
     }
-
+ 
     #onMenuClick = () => {
         this.#container.classList.toggle('open');
     }
@@ -32,11 +32,3 @@ export default class DropdownMenu {
         `
     }
 }
-
-const dropdownMenu = new DropdownMenu(
-    'Десерты',
-    ['Торт', 'Пончики'],
-    document.querySelector('.container-menu')
-);
-
-dropdownMenu.render();

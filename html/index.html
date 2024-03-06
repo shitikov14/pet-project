@@ -12,13 +12,41 @@
   <header class="header">
     <div class="container-menu"></div>
   </header>
+  <div class="dropdown"></div>
   <div class="container" data-carousel-holder></div>
 
   <script type="module">
+    import Menu from '../js/menu.js';
     import DropdownMenu from '../js/dropdown-menu.js';
     import slides from '../js/slides.js';
     import Carousel from '../js/gallery.js';
 
+    const dropdownMenu = new DropdownMenu(
+        'Десерты',
+        ['Торт', 'Пончики'],
+        document.querySelector('.dropdown')
+    );
+
+    const menu = new Menu(
+        [
+          {
+            name: 'Главная',
+            link: 'https://learn.javascript.ru/class-inheritance'
+          },
+          {
+            name: 'О нас',
+            link: 'https://learn.javascript.ru/class-inheritancewww'
+          },
+          {
+            name: 'Личный кабинет',
+            link: 'https://learn.javascript.ru/class-inheritancesdf'
+          }
+        ],
+        document.querySelector('.container-menu')
+    );
+
+    dropdownMenu.render();
+    menu.render();
 
     let containerElement = document.body.querySelector('.container');
     let carousel = new Carousel(slides);
